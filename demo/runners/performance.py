@@ -8,13 +8,13 @@ from typing import Tuple
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from runners.support.agent import (  # noqa:E402 --
+from runners.support.agent import (  # noqa:E402 ----
     DemoAgent,
     default_genesis_txns,
     start_mediator_agent,
     connect_wallet_to_mediator,
 )
-from runners.support.utils import (  # noqa:E402 --
+from runners.support.utils import (  # noqa:E402 --**
     check_requires,
     log_msg,
     log_timer,

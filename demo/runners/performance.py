@@ -8,13 +8,13 @@ from typing import Tuple
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from runners.support.agent import (  # noqa:E402 ----
+from runners.support.agent import (  # noqa:E402
     DemoAgent,
     default_genesis_txns,
     start_mediator_agent,
     connect_wallet_to_mediator,
 )
-from runners.support.utils import (  # noqa:E402 --**
+from runners.support.utils import (  # noqa:E402
     check_requires,
     log_msg,
     log_timer,
@@ -500,9 +500,13 @@ async def main(
 
         recv_timer.stop()
         avg = recv_timer.duration / issue_count
+        tps = threads / avg
         item_short = "ping" if action == "ping" else "cred"
         item_long = "ping exchange" if action == "ping" else "credential"
-        faber.log(f"Average time per {item_long}: {avg:.2f}s ({1/avg:.2f}/s)")
+        faber.log(f"Average time per {item_long}: {avg:.2f}s ({1/avg:.2f}/s) - latency")
+        faber.log(f"Threads: {threads}")
+        faber.log(f"Transactions per second: {tps}")
+
 
         if alice.postgres:
             await alice.collect_postgres_stats(f"{issue_count} {item_short}s")
